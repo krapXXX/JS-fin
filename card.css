@@ -1,0 +1,124 @@
+.containerShop {
+    padding: 1.57em;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 1.26em;
+    justify-content: center;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 22.05em;
+    width: 15.75em;
+    background-color: #ffffff;
+    border-radius: 9.45px;
+    border: 1px solid rgba(0, 0, 0, 0.227);
+    transition: transform 0.5s ease;
+}
+
+.card:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 7.35px rgba(0, 0, 0, 0.741);
+}
+
+.card img {
+    margin-top: 0.63em;
+    width: 12.6em;
+    display: flex;
+    align-items: center;
+    transition: opacity 0.3s ease;
+}
+
+.card img.original {
+    margin-top: 1em;
+    width: 12.6em;
+    display: flex;
+    align-items: center;
+    transition: opacity 0.3s ease;
+}
+
+.card img.hovered {
+    position: absolute;
+    top: 0;
+    margin-bottom: 1em;
+    margin-top: 1em;
+    width: 12.6em;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card:hover img.original {
+    opacity: 0;
+}
+
+.card:hover img.hovered {
+    opacity: 1;
+}
+
+.name {
+    padding-left: 1.4em;
+    padding-top: 0.31em;
+    text-align: left;
+    font-size: 1.4em;
+    width: 100%;
+    text-transform: capitalize;
+}
+
+.prv_price {
+    padding-left: 2.3em;
+    padding-top: 0.63em;
+    text-align: left;
+    font-size: 0.82em;
+    text-decoration: line-through;
+    width: 100%;
+    color: #383838
+}
+
+.price {
+    color: red;
+    padding-left: 1.3em;
+    text-align: left;
+    font-size: 1.26em;
+    width: 100%;
+}
+
+.star {
+    padding-left: 0.63em;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 0.19em;
+    width: 100%;
+}
+
+.star img {
+    height: 1.26em;
+    width: auto;
+}
+
+.cart {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding-right: 0.63em;
+}
+
+.cart img {
+    height: 1.26em;
+    width: auto;
+}
+
+.line {
+    display: flex;
+    flex-direction: row;
+    gap: 6.5em;
+}
+
+
+
