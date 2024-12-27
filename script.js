@@ -242,7 +242,7 @@ let products = [
 ];
 
 let container = document.querySelector('.containerShop');
-let cardsContainer = document.querySelector(".cards-container"); 
+let cardsContainer = document.querySelector(".cards-container");
 
 function createProductCard(product, place) {
     let card = document.createElement('div');
@@ -294,17 +294,17 @@ function createProductCard(product, place) {
     price.textContent = product.currentPrice;
     card.appendChild(price);
 
-    place.appendChild(card); 
+    place.appendChild(card);
 
     card.dataset.characteristics = JSON.stringify(product.productCharacteristics);
 }
 products.forEach((product) => {
-    createProductCard(product, container); 
+    createProductCard(product, container);
 });
 
 function createScrollableList(currentProductName) {
     let scrollWrapper = document.createElement('div');
-    scrollWrapper.classList.add('cards-container'); 
+    scrollWrapper.classList.add('cards-container');
 
     products.forEach((product) => {
         createProductCard(product, scrollWrapper, {
@@ -391,87 +391,84 @@ document.addEventListener('DOMContentLoaded', () => {
             let originalImageSrc = card.querySelector('img.original').src;
             let hoveredImageSrc = card.querySelector('img.hovered').src;
             let productCharacteristics = JSON.parse(card.dataset.characteristics);
-    
+
             document.body.innerHTML = '';
             let productPage = template.content.cloneNode(true);
-    
-            // Populate product details
+
             productPage.querySelector('.product-name').textContent = productName;
             productPage.querySelector('.product-price').textContent = productPrice;
             productPage.querySelector('.product-prvPrice').textContent = productPrvPrice;
             productPage.querySelector('.product-stars').innerHTML = productStars;
-    
+
             let characteristicsContainer = productPage.querySelector('.product-characteristics');
             let ul = document.createElement('ul');
-    
+
             productCharacteristics.forEach(characteristic => {
                 let li = document.createElement('li');
                 li.textContent = characteristic;
                 ul.appendChild(li);
             });
             characteristicsContainer.appendChild(ul);
-    
+
             let ancorLink = productPage.querySelector('.ancor');
             ancorLink.addEventListener('click', () => {
                 characteristicsContainer.scrollIntoView({
                     behavior: 'smooth'
                 });
             });
-    
+
             let firstCarouselItem = productPage.querySelector('#first');
             let secondCarouselItem = productPage.querySelector('#second');
             firstCarouselItem.src = originalImageSrc;
             secondCarouselItem.src = hoveredImageSrc;
-    
+
             let scrollableContainer = productPage.querySelector('.cards-container');
-    
+
             function createScrollableList(currentProductName) {
                 scrollableContainer.innerHTML = '';
-    
+
                 let scrollWrapper = document.createElement('div');
                 scrollWrapper.classList.add('cards-container');
-    
+
                 products.forEach(product => {
                     if (product.name !== currentProductName) {
                         createProductCard(product, scrollWrapper);
                     }
                 });
-    
+
                 scrollableContainer.appendChild(scrollWrapper);
             }
-    
+
             createScrollableList(productName);
-    
+
             document.body.appendChild(productPage);
-    
-            // Back button logic
+
             let backButton = document.getElementById('backButton');
             backButton.addEventListener('click', () => {
                 location.reload();
             });
-    
-            // Carousel logic
+
             let carouselItems = document.querySelectorAll('.carousel-item');
             let currentIndex = 0;
-    
+
             function showSlide(index) {
                 carouselItems.forEach((item, i) => {
                     item.style.display = i === index ? 'block' : 'none';
                 });
             }
-    
+
             function nextSlide() {
                 currentIndex = (currentIndex + 1) % carouselItems.length;
                 showSlide(currentIndex);
             }
-    
+
             function previousSlide() {
                 currentIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
                 showSlide(currentIndex);
             }
-    
+
             showSlide(currentIndex);
-    
+
             document.querySelector("#nextBtn").addEventListener('click', nextSlide);
             document.querySelector("#prevBtn").addEventListener('click', previousSlide);
         });
@@ -486,21 +483,21 @@ document.addEventListener('DOMContentLoaded', () => {
             let productPrice = document.querySelector('.product-price').textContent;
             let productImage = document.querySelector('#first').src;
 
-            // Clear the page and create a new buy page
             document.body.innerHTML = '';
 
-            let buyPage = document.createElement('div');
-            buyPage.classList.add('buy-page');
-
-            // Create a back button
+            let header = document.createElement('header');
+            header.classList.add('page-header');
             let backButton = document.createElement('button');
             backButton.id = 'backButton';
             backButton.textContent = 'Back';
             backButton.addEventListener('click', () => {
-                location.reload(); // Or navigate back to the previous page
+                location.reload();
             });
+            header.appendChild(backButton);
 
-            // Create a product summary
+            let main = document.createElement('main');
+            main.classList.add('page-main');
+
             let productSummary = document.createElement('div');
             productSummary.classList.add('product-summary');
             productSummary.innerHTML = `
@@ -510,92 +507,96 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="product-price">${productPrice}</div>
                 </div>
             `;
+            main.appendChild(productSummary);
 
-            // Append back button and product summary to the buyPage
-            buyPage.appendChild(backButton);
-            buyPage.appendChild(productSummary);
+            let formContainer = document.createElement('div');
+            formContainer.innerHTML = `
+                <form class="purchase-form">
+                    <div class="form-group">
+                        <label for="firstName">First Name:</label>
+                        <input type="text" id="firstName" name="firstName" required minlength="3">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" id="lastName" name="lastName" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country:</label>
+                        <select id="country" name="country" required>
+                            <option value="Ukraine">Ukraine</option>
+                            <option value="Moldova">Moldova</option>
+                            <option value="Romania">Romania</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City:</label>
+                        <input type="text" id="city" name="city" required minlength="5">
+                    </div>
+                    <div class="form-group">
+                        <label for="postOffice">Post Office:</label>
+                        <input type="text" id="postOffice" name="postOffice" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="paymentOption">Payment Option:</label>
+                        <select id="paymentOption" name="paymentOption" required>
+                            <option value="card">Card</option>
+                            <option value="cash">Cash</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="next-button">Next</button>
+                </form>
+            `;
+            main.appendChild(formContainer);
 
-            document.body.appendChild(buyPage);
-        }
-    });
+            let footer = document.createElement('footer');
+            footer.textContent = 'footer';
 
-    let form = document.querySelector('.purchase-form');
-    form.addEventListener('submit', (event) => {
-        event.preventDefault();
-        let isValid = true;
+            document.body.appendChild(header);
+            document.body.appendChild(main);
+            document.body.appendChild(footer);
 
-        // First Name Validation
-        let firstNameField = form.querySelector('#firstName');
-        if (firstNameField.value.trim().length < 3) {
-            firstNameField.setCustomValidity('First Name must be at least 3 characters long.');
-            firstNameField.classList.add('invalid');
-            isValid = false;
-        } else {
-            firstNameField.setCustomValidity('');
-            firstNameField.classList.remove('invalid');
-        }
+            const form = document.forms[0];
 
-        // Last Name Validation
-        let lastNameField = form.querySelector('#lastName');
-        if (lastNameField.value.trim().length < 6) {
-            lastNameField.setCustomValidity('Last Name must be at least 6 characters long.');
-            lastNameField.classList.add('invalid');
-            isValid = false;
-        } else {
-            lastNameField.setCustomValidity('');
-            lastNameField.classList.remove('invalid');
-        }
+            form.addEventListener("invalid", eventHandler, true);
 
-        // Country Validation
-        let countryField = form.querySelector('#country');
-        if (!countryField.value) {
-            countryField.setCustomValidity('Please select a country.');
-            countryField.classList.add('invalid');
-            isValid = false;
-        } else {
-            countryField.setCustomValidity('');
-            countryField.classList.remove('invalid');
-        }
+            form.querySelectorAll("input, select").forEach((input) => {
+                input.addEventListener("blur", () => {
+                    if (!input.checkValidity()) {
+                        input.classList.add("invalid");
+                        checkErrorAndSetMessage(input);
+                    } else {
+                        input.classList.remove("invalid");
+                        input.setCustomValidity("");
+                    }
+                });
+            });
 
-        // City Validation
-        let cityField = form.querySelector('#city');
-        if (cityField.value.trim().length < 5) {
-            cityField.setCustomValidity('City must be at least 5 characters long.');
-            cityField.classList.add('invalid');
-            isValid = false;
-        } else {
-            cityField.setCustomValidity('');
-            cityField.classList.remove('invalid');
-        }
+            function eventHandler(event) {
+                if (event.target.tagName !== "INPUT" && event.target.tagName !== "SELECT") {
+                    return;
+                }
+                checkErrorAndSetMessage(event.target);
+            }
 
-        // Post Office Validation
-        let postOfficeField = form.querySelector('#postOffice');
-        if (!postOfficeField.value.trim()) {
-            postOfficeField.setCustomValidity('Post Office cannot be empty.');
-            postOfficeField.classList.add('invalid');
-            isValid = false;
-        } else {
-            postOfficeField.setCustomValidity('');
-            postOfficeField.classList.remove('invalid');
-        }
+            function checkErrorAndSetMessage(input) {
+                input.setCustomValidity("");
 
-        // Payment Option Validation
-        let paymentOptionField = form.querySelector('#paymentOption');
-        if (!paymentOptionField.value) {
-            paymentOptionField.setCustomValidity('Please select a payment option.');
-            paymentOptionField.classList.add('invalid');
-            isValid = false;
-        } else {
-            paymentOptionField.setCustomValidity('');
-            paymentOptionField.classList.remove('invalid');
-        }
+                if (input.validity.valueMissing) {
+                    input.setCustomValidity("This field is required.");
+                } else if (input.name === "firstName" && input.validity.tooShort) {
+                    input.setCustomValidity("First Name must be at least 3 characters long.");
+                } else if (input.name === "lastName" && input.validity.tooShort) {
+                    input.setCustomValidity("Last Name must be at least 6 characters long.");
+                } else if (input.name === "city" && input.validity.tooShort) {
+                    input.setCustomValidity("City must be at least 5 characters long.");
+                } else if (input.name === "postOffice" && input.validity.valueMissing) {
+                    input.setCustomValidity("Post Office cannot be empty.");
+                } else if (input.name === "paymentOption" && input.validity.valueMissing) {
+                    input.setCustomValidity("Please select a payment option.");
+                }
+            }
 
-        // If any field is invalid, show an alert
-        if (!isValid) {
-            alert('Please correct the highlighted fields.');
-        } else {
-            // Process the form (e.g., show a success message or send the data)
-            alert('Form submitted successfully!');
+
         }
     });
 });

@@ -1,12 +1,9 @@
-.buy-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2em;
-    font-family: Arial, sans-serif;
+
+
+.invalid
+{
+    border:1px solid red;
 }
-
-
 .product-summary {
     display: flex;
     align-items: center;
@@ -30,16 +27,21 @@
     display: flex;
     flex-direction: column;
     gap: 1em;
-    width: 100%;
-    max-width: 400px;
 }
 
 .form-group {
+    width: 20em;
     display: flex;
     flex-direction: column;
     gap: 0.5em;
 }
-
+.page-main
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2em;
+}
 input, select, button {
     padding: 0.8em;
     font-size: 1em;
